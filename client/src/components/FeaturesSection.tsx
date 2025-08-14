@@ -57,21 +57,19 @@ export default function FeaturesSection() {
               }}
               className="feature-card"
             >
-              <div className="gradient-border rounded-xl">
-                <div className="glass-effect rounded-xl p-8 h-full">
-                  <div className="flex items-center mb-4">
-                    <div className={`w-3 h-3 ${feature.color} rounded-full mr-3`}></div>
-                    <h3 className="text-lg font-semibold">{feature.title}</h3>
-                  </div>
-                  <p className="text-xs text-gray-400 mb-6">
-                    {feature.description}
-                  </p>
-                  <img 
-                    src={feature.image} 
-                    alt={feature.title}
-                    className="rounded-lg w-full h-32 object-cover opacity-80" 
-                  />
+              <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-8 h-full hover:border-gray-700 transition-all duration-300">
+                <div className="flex items-center mb-4">
+                  <div className={`w-3 h-3 ${feature.color} rounded-full mr-3`}></div>
+                  <h3 className="text-lg font-semibold">{feature.title}</h3>
                 </div>
+                <p className="text-xs text-gray-400 mb-6">
+                  {feature.description}
+                </p>
+                <img 
+                  src={feature.image} 
+                  alt={feature.title}
+                  className="rounded-lg w-full h-32 object-cover opacity-80" 
+                />
               </div>
             </motion.div>
           ))}
