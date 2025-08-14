@@ -37,20 +37,16 @@ export default function FeaturesSection() {
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  // Responsive cards per view using CSS classes
-  const maxIndex = Math.max(0, features.length - 1); // For mobile (1 card)
-  const maxIndexDesktop = Math.max(0, features.length - 3); // For desktop (3 cards)
+  // For desktop: show 3 cards, can scroll through them
+  // For mobile: show 1 card, scroll through all
+  const maxIndex = Math.max(0, features.length - 1); // For mobile (1 card at a time)
 
   const nextSlide = () => {
-    // Use different max index based on screen size
-    const currentMaxIndex = window.innerWidth >= 768 ? maxIndexDesktop : maxIndex;
-    setCurrentIndex((prev) => (prev >= currentMaxIndex ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    // Use different max index based on screen size
-    const currentMaxIndex = window.innerWidth >= 768 ? maxIndexDesktop : maxIndex;
-    setCurrentIndex((prev) => (prev <= 0 ? currentMaxIndex : prev - 1));
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
   return (
@@ -69,10 +65,10 @@ export default function FeaturesSection() {
         </motion.div>
         
         <div className="relative">
-          {/* Navigation Arrows - Only show on mobile */}
+          {/* Navigation Arrows - Show on both mobile and desktop */}
           <motion.button
             onClick={prevSlide}
-            className="md:hidden absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 border border-gray-700 rounded-full p-2 transition-all duration-300"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 border border-gray-700 rounded-full p-2 transition-all duration-300"
             disabled={currentIndex === 0}
             initial={{ opacity: 0, x: -10 }}
             animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
@@ -85,7 +81,7 @@ export default function FeaturesSection() {
           
           <motion.button
             onClick={nextSlide}
-            className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 border border-gray-700 rounded-full p-2 transition-all duration-300"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 border border-gray-700 rounded-full p-2 transition-all duration-300"
             disabled={currentIndex >= maxIndex}
             initial={{ opacity: 0, x: 10 }}
             animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 10 }}
@@ -99,9 +95,9 @@ export default function FeaturesSection() {
           {/* Cards Container */}
           <div ref={ref} className="overflow-hidden mx-6 md:mx-12">
             <motion.div 
-              className="md:grid md:grid-cols-3 md:gap-8 flex gap-4 transition-transform duration-500 ease-in-out md:transform-none"
+              className="flex gap-4 md:gap-8 transition-transform duration-500 ease-in-out"
               style={{
-                transform: typeof window !== 'undefined' && window.innerWidth < 768 ? `translateX(-${currentIndex * 100}%)` : 'none'
+                transform: `translateX(-${currentIndex * (100 / (typeof window !== 'undefined' && window.innerWidth >= 768 ? 3 : 1))}%)`
               }}
             >
               {features.map((feature, index) => (
@@ -114,7 +110,7 @@ export default function FeaturesSection() {
                     delay: index * 0.2,
                     ease: "easeOut"
                   }}
-                  className="feature-card flex-shrink-0 w-full"
+                  className="feature-card flex-shrink-0 w-full md:w-1/3"
                 >
                   <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6 md:p-8 h-full hover:border-gray-700 transition-all duration-300">
                     <div className="flex items-center mb-4">
@@ -135,9 +131,9 @@ export default function FeaturesSection() {
             </motion.div>
           </div>
 
-          {/* Dots Indicator - Only show on mobile */}
+          {/* Dots Indicator */}
           <motion.div 
-            className="md:hidden flex justify-center mt-8 space-x-2"
+            className="flex justify-center mt-8 space-x-2"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
