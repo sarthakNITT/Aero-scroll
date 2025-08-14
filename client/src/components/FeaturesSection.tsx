@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const features = [
   {
@@ -34,6 +36,18 @@ export default function FeaturesSection() {
     threshold: 0.1
   });
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const cardsPerView = 3; // Show 3 cards at a time
+  const maxIndex = Math.max(0, features.length - cardsPerView);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
   return (
     <section className="min-h-screen py-20 relative scroll-snap-section" id="features">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,35 +58,76 @@ export default function FeaturesSection() {
           </p>
         </div>
         
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 60 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-              transition={{ 
-                duration: 0.8, 
-                delay: index * 0.2,
-                ease: "easeOut"
+        <div className="relative">
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 border border-gray-700 rounded-full p-2 transition-all duration-300"
+            disabled={currentIndex === 0}
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 hover:bg-gray-800 border border-gray-700 rounded-full p-2 transition-all duration-300"
+            disabled={currentIndex >= maxIndex}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          {/* Cards Container */}
+          <div ref={ref} className="overflow-hidden mx-12">
+            <motion.div 
+              className="flex gap-8 transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`
               }}
-              className="feature-card"
             >
-              <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-8 h-full hover:border-gray-700 transition-all duration-300">
-                <div className="flex items-center mb-4">
-                  <div className={`w-3 h-3 ${feature.color} rounded-full mr-3`}></div>
-                  <h3 className="text-lg font-semibold">{feature.title}</h3>
-                </div>
-                <p className="text-xs text-gray-400 mb-6">
-                  {feature.description}
-                </p>
-                <img 
-                  src={feature.image} 
-                  alt={feature.title}
-                  className="rounded-lg w-full h-32 object-cover opacity-80" 
-                />
-              </div>
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: index * 0.2,
+                    ease: "easeOut"
+                  }}
+                  className="feature-card flex-shrink-0"
+                  style={{ width: `calc(${100 / cardsPerView}% - 2rem)` }}
+                >
+                  <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-8 h-full hover:border-gray-700 transition-all duration-300">
+                    <div className="flex items-center mb-4">
+                      <div className={`w-3 h-3 ${feature.color} rounded-full mr-3`}></div>
+                      <h3 className="text-lg font-semibold">{feature.title}</h3>
+                    </div>
+                    <p className="text-xs text-gray-400 mb-6">
+                      {feature.description}
+                    </p>
+                    <img 
+                      src={feature.image} 
+                      alt={feature.title}
+                      className="rounded-lg w-full h-32 object-cover opacity-80" 
+                    />
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'bg-white' : 'bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
