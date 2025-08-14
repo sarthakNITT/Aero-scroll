@@ -37,7 +37,7 @@ export default function FeaturesSection() {
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const cardsPerView = 3; // Show 3 cards at a time
+  const cardsPerView = 1; // Show 1 card at a time for better mobile experience
   const maxIndex = Math.max(0, features.length - cardsPerView);
 
   const nextSlide = () => {
@@ -92,11 +92,11 @@ export default function FeaturesSection() {
           </motion.button>
 
           {/* Cards Container */}
-          <div ref={ref} className="overflow-hidden mx-12">
+          <div ref={ref} className="overflow-hidden mx-6 md:mx-12">
             <motion.div 
-              className="flex gap-8 transition-transform duration-500 ease-in-out"
+              className="flex gap-4 md:gap-8 transition-transform duration-500 ease-in-out"
               style={{
-                transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)`
+                transform: `translateX(-${currentIndex * 100}%)`
               }}
             >
               {features.map((feature, index) => (
@@ -109,13 +109,12 @@ export default function FeaturesSection() {
                     delay: index * 0.2,
                     ease: "easeOut"
                   }}
-                  className="feature-card flex-shrink-0"
-                  style={{ width: `calc(${100 / cardsPerView}% - 2rem)` }}
+                  className="feature-card flex-shrink-0 w-full"
                 >
-                  <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-8 h-full hover:border-gray-700 transition-all duration-300">
+                  <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6 md:p-8 h-full hover:border-gray-700 transition-all duration-300">
                     <div className="flex items-center mb-4">
                       <div className={`w-3 h-3 ${feature.color} rounded-full mr-3`}></div>
-                      <h3 className="text-lg font-semibold">{feature.title}</h3>
+                      <h3 className="text-base md:text-lg font-semibold">{feature.title}</h3>
                     </div>
                     <p className="text-xs text-gray-400 mb-6">
                       {feature.description}
