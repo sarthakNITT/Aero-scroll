@@ -40,19 +40,16 @@ export default function ParticleBackground() {
     const updateParticles = () => {
       const particles = particlesRef.current;
       
-      // Add new particles
       if (particles.length < 50 && Math.random() < 0.1) {
         particles.push(createParticle());
       }
 
-      // Update existing particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const particle = particles[i];
         particle.x += particle.vx;
         particle.y += particle.vy;
         particle.life++;
 
-        // Remove particles that are too old or off screen
         if (particle.life > particle.maxLife || particle.y < -10 || 
             particle.x < -10 || particle.x > canvas.width + 10) {
           particles.splice(i, 1);

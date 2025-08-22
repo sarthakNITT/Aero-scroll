@@ -37,9 +37,7 @@ export default function FeaturesSection() {
   });
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  // For desktop: show 3 cards, can scroll through them
-  // For mobile: show 1 card, scroll through all
-  const maxIndex = Math.max(0, features.length - 1); // For mobile (1 card at a time)
+  const maxIndex = Math.max(0, features.length - 1);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));

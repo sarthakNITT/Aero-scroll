@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Operator - AI-Powered Mobile App Testing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'particle': 'particle 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        particle: {
+                            '0%': { transform: 'translateY(100vh) translateX(0px)', opacity: '0' },
+                            '10%': { opacity: '1' },
+                            '90%': { opacity: '1' },
+                            '100%': { transform: 'translateY(-100vh) translateX(50px)', opacity: '0' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gradient-border {
+            background: linear-gradient(135deg, rgba(255, 77, 77, 0.3), rgba(59, 130, 246, 0.3));
+            padding: 1px;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #ff4d4d, #3b82f6);
+        }
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: particle 20s linear infinite;
+        }
+        .scroll-snap-container {
+            scroll-snap-type: y mandatory;
+        }
+        .scroll-snap-section {
+            scroll-snap-align: start;
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-inter overflow-x-hidden scroll-snap-container">
+    <!-- Animated Background Particles -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">MO</span>
+                    </div>
+                    <span class="ml-3 text-sm font-semibold">Mobile Operator</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" class="text-xs text-gray-300 hover:text-white transition-colors">Features</a>
+                        <a href="#pricing" class="text-xs text-gray-300 hover:text-white transition-colors">Pricing</a>
+                        <a href="#about" class="text-xs text-gray-300 hover:text-white transition-colors">About</a>
+                        <button class="gradient-bg px-4 py-2 rounded-lg text-xs font-medium hover:opacity-90 transition-opacity">
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative scroll-snap-section" id="hero">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="hero-content opacity-0 translate-y-10">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    AI-Powered Mobile
+                    <span class="bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">
+                        Testing Revolution
+                    </span>
+                </h1>
+                <p class="text-sm md:text-base text-gray-400 mb-8 max-w-2xl mx-auto">
+                    Automate your mobile app testing with advanced AI. Detect crashes, optimize performance, 
+                    and ensure quality across all devices before your users do.
+                </p>
+                <button class="gradient-bg px-8 py-3 rounded-lg text-sm font-medium hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="min-h-screen py-20 relative scroll-snap-section" id="features">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Intelligent Testing Suite</h2>
+                <p class="text-sm text-gray-400 max-w-2xl mx-auto">
+                    Our AI analyzes your mobile app's behavior patterns to deliver comprehensive testing coverage
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="feature-card opacity-0 translate-y-10">
+                    <div class="gradient-border rounded-xl">
+                        <div class="glass-effect rounded-xl p-8 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                                <h3 class="text-lg font-semibold">Crash Detection</h3>
+                            </div>
+                            <p class="text-xs text-gray-400 mb-6">
+                                Advanced AI algorithms detect potential crash scenarios before they impact users. 
+                                Real-time monitoring across all device configurations.
+                            </p>
+                            <!-- A clean, modern smartphone displaying error detection interface -->
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                                 alt="Mobile testing interface" class="rounded-lg w-full h-32 object-cover opacity-80" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="feature-card opacity-0 translate-y-10">
+                    <div class="gradient-border rounded-xl">
+                        <div class="glass-effect rounded-xl p-8 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                                <h3 class="text-lg font-semibold">Performance Analytics</h3>
+                            </div>
+                            <p class="text-xs text-gray-400 mb-6">
+                                Deep performance insights with memory usage, CPU optimization, and battery impact analysis. 
+                                Identify bottlenecks instantly.
+                            </p>
+                            <!-- A dashboard showing performance metrics and analytics charts -->
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                                 alt="Performance analytics dashboard" class="rounded-lg w-full h-32 object-cover opacity-80" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="feature-card opacity-0 translate-y-10">
+                    <div class="gradient-border rounded-xl">
+                        <div class="glass-effect rounded-xl p-8 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                <h3 class="text-lg font-semibold">Automated Testing</h3>
+                            </div>
+                            <p class="text-xs text-gray-400 mb-6">
+                                Smart test case generation and execution. Our AI creates comprehensive test scenarios 
+                                based on user behavior patterns.
+                            </p>
+                            <!-- Automated testing robots or automation workflow visualization -->
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                                 alt="Automated testing workflow" class="rounded-lg w-full h-32 object-cover opacity-80" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="feature-card opacity-0 translate-y-10">
+                    <div class="gradient-border rounded-xl">
+                        <div class="glass-effect rounded-xl p-8 h-full">
+                            <div class="flex items-center mb-4">
+                                <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                                <h3 class="text-lg font-semibold">Cross-Platform Support</h3>
+                            </div>
+                            <p class="text-xs text-gray-400 mb-6">
+                                Test across iOS, Android, and hybrid platforms simultaneously. 
+                                Ensure consistent experience across all devices and OS versions.
+                            </p>
+                            <!-- Multiple devices showing different mobile platforms -->
+                            <img src="https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                                 alt="Multiple mobile devices" class="rounded-lg w-full h-32 object-cover opacity-80" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="min-h-screen py-20 relative scroll-snap-section" id="demo">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">See It In Action</h2>
+                <p class="text-sm text-gray-400 max-w-2xl mx-auto">
+                    Watch how Mobile Operator transforms your testing workflow in minutes
+                </p>
+            </div>
+            
+            <div class="relative">
+                <!-- Video Container -->
+                <div class="video-container opacity-0 translate-y-10 mb-12">
+                    <div class="gradient-border rounded-xl">
+                        <div class="glass-effect rounded-xl p-4">
+                            <div class="aspect-video w-full max-w-4xl mx-auto">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                    title="Mobile Operator Demo"
+                                    class="w-full h-full rounded-lg"
+                                    frameborder="0" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Surrounding Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="video-card opacity-0 translate-y-10">
+                        <div class="glass-effect rounded-lg p-6 text-center">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mx-auto mb-3"></div>
+                            <h4 class="text-sm font-semibold mb-2">Quick Setup</h4>
+                            <p class="text-xs text-gray-400">Integration in under 5 minutes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card opacity-0 translate-y-10">
+                        <div class="glass-effect rounded-lg p-6 text-center">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full mx-auto mb-3"></div>
+                            <h4 class="text-sm font-semibold mb-2">Real-time Results</h4>
+                            <p class="text-xs text-gray-400">Instant feedback and reports</p>
+                        </div>
+                    </div>
+                    
+                    <div class="video-card opacity-0 translate-y-10">
+                        <div class="glass-effect rounded-lg p-6 text-center">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mx-auto mb-3"></div>
+                            <h4 class="text-sm font-semibold mb-2">Smart Analytics</h4>
+                            <p class="text-xs text-gray-400">AI-powered insights</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Features Section -->
+    <section class="py-20 relative scroll-snap-section" id="advanced">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="advanced-content opacity-0 translate-x-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Advanced AI Testing</h2>
+                    <p class="text-sm text-gray-400 mb-8">
+                        Our machine learning models continuously learn from your app's behavior, 
+                        creating smarter test cases and identifying edge cases that traditional testing misses.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-red-500 rounded-full mr-4"></div>
+                            <span class="text-sm">Machine Learning Test Generation</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-4"></div>
+                            <span class="text-sm">Predictive Issue Detection</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-4"></div>
+                            <span class="text-sm">Automated Regression Testing</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-4"></div>
+                            <span class="text-sm">Intelligent Test Prioritization</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="advanced-image opacity-0 translate-x-10">
+                    <!-- AI and machine learning visualization with neural networks -->
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                         alt="AI neural network visualization" class="rounded-xl w-full opacity-80" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-t from-gray-900 to-black py-16 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">MO</span>
+                        </div>
+                        <span class="ml-3 text-sm font-semibold">Mobile Operator</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-6">
+                        Revolutionizing mobile app testing with AI-powered automation and intelligent quality assurance.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <span class="text-xs">Twitter</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <span class="text-xs">LinkedIn</span>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <span class="text-xs">GitHub</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Product -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">API Docs</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Integrations</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Case Studies</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Webinars</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Privacy</a></li>
+                        <li><a href="#" class="text-xs text-gray-400 hover:text-white transition-colors">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-xs text-gray-400">© 2024 Mobile Operator. All rights reserved.</p>
+                    <p class="text-xs text-gray-400 mt-4 md:mt-0">Built for mobile development teams worldwide</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Create animated particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize animations when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+
+            // Hero animation
+            gsap.fromTo('.hero-content', 
+                { opacity: 0, y: 50 }, 
+                { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
+            );
+
+            // Feature cards animation (staggered like Airweave)
+            gsap.fromTo('.feature-card', 
+                { opacity: 0, y: 60 }, 
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.8, 
+                    stagger: 0.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: '#features',
+                        start: 'top 70%',
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+
+            // Video section animation
+            gsap.fromTo('.video-container', 
+                { opacity: 0, y: 60 }, 
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: '#demo',
+                        start: 'top 70%',
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+
+            // Video cards animation
+            gsap.fromTo('.video-card', 
+                { opacity: 0, y: 40 }, 
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 0.6, 
+                    stagger: 0.15,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: '.video-container',
+                        start: 'bottom 80%',
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+
+            // Advanced section animation
+            gsap.fromTo('.advanced-content', 
+                { opacity: 0, x: -60 }, 
+                { 
+                    opacity: 1, 
+                    x: 0, 
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: '#advanced',
+                        start: 'top 70%',
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+
+            gsap.fromTo('.advanced-image', 
+                { opacity: 0, x: 60 }, 
+                { 
+                    opacity: 1, 
+                    x: 0, 
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: '#advanced',
+                        start: 'top 70%',
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+
+            // Parallax effect for background
+            gsap.to('#particles-container', {
+                y: -100,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: document.body,
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: 1
+                }
+            });
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // TODO: Implement business logic for form submissions, API calls, and user interactions
+        // TODO: Add state management for user authentication and data persistence
+        // TODO: Integrate with actual video content and dynamic data sources
+    </script>
+</body>
+</html>
